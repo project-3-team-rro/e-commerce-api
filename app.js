@@ -9,7 +9,7 @@ const mongoose     = require('mongoose');
 const logger       = require('morgan');
 const path         = require('path');
 
-
+console.log("Osse")
 mongoose.Promise = Promise;
 mongoose
   .connect('mongodb://localhost/e-commerce-api', {useMongoClient: true})
