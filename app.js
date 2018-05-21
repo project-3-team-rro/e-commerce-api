@@ -1,23 +1,23 @@
 require('dotenv').config();
 
-const bodyParser     = require('body-parser');
-const cookieParser   = require('cookie-parser');
-const express        = require('express');
-const favicon        = require('serve-favicon');
-const hbs            = require('hbs');
-const mongoose       = require('mongoose');
-const logger         = require('morgan');
-const path           = require('path');
-const User           = require('./models/user');
+const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
+const express = require('express');
+const favicon = require('serve-favicon');
+const hbs = require('hbs');
+const mongoose = require('mongoose');
+const logger = require('morgan');
+const path = require('path');
+const User = require('./models/user');
 // const Room           = require('./models/');
-const session        = require("express-session");
-const bcrypt         = require("bcryptjs");
-const passport       = require("passport");
-const LocalStrategy  = require("passport-local").Strategy;
-const app            = express();
-const flash          = require("connect-flash");
+const session = require("express-session");
+const bcrypt = require("bcryptjs");
+const passport = require("passport");
+const LocalStrategy = require("passport-local").Strategy;
+const app = express();
+const flash = require("connect-flash");
 const GoogleStrategy = require("passport-google-oauth").OAuth2Strategy;
-const cors           = require('cors');
+const cors = require('cors');
 
 console.log('blah')
 
@@ -78,7 +78,9 @@ passport.serializeUser((user, cb) => {
 
 passport.deserializeUser((id, cb) => {
   User.findById(id, (err, user) => {
-    if (err) { return cb(err); }
+    if (err) {
+      return cb(err);
+    }
     cb(null, user);
   });
 });
@@ -86,15 +88,21 @@ passport.deserializeUser((id, cb) => {
 passport.use(new LocalStrategy({
   passReqToCallback: true
 }, (req, username, password, next) => {
-  User.findOne({ username }, (err, user) => {
+  User.findOne({
+    username
+  }, (err, user) => {
     if (err) {
       return next(err);
     }
     if (!user) {
-      return next(null, false, { message: "Incorrect username" });
+      return next(null, false, {
+        message: "Incorrect username"
+      });
     }
     if (!bcrypt.compareSync(password, user.password)) {
-      return next(null, false, { message: "Incorrect password" });
+      return next(null, false, {
+        message: "Incorrect password"
+      });
     }
 
     return next(null, user);
@@ -108,7 +116,9 @@ passport.use(new GoogleStrategy({
   clientSecret: "client secret here",
   callbackURL: "/auth/google/callback"
 }, (accessToken, refreshToken, profile, done) => {
-  User.findOne({ googleID: profile.id }, (err, user) => {
+  User.findOne({
+    googleID: profile.id
+  }, (err, user) => {
     if (err) {
       return done(err);
     }
@@ -143,7 +153,7 @@ const index = require('./routes/index');
 app.use('/', index);
 const authRouteVariableThing = require('./routes/auth-routes')
 app.use('/api', authRouteVariableThing);
-// const roomsRoutes = require('./routes/rooms-routes');
-// app.use('/', roomsRoutes);
+const merchandiseRoutes = require('./routes/merchandise-routes');
+app.use('/api', merchandiseRoutes);
 
 module.exports = app;

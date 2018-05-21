@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 const UserSchema = new Schema({
   email: {
     type: String,
-    required: true,
+    // required: true,
   },
   password: {
     type: String,
@@ -16,7 +16,7 @@ const UserSchema = new Schema({
   },
   role: {
     type: String,
-    required: true
+    // required: true
   },
   address: {
     state: {
@@ -39,7 +39,10 @@ const UserSchema = new Schema({
     type: Number
   }
 }, {
-  timestamps: { createdAt: "created_at", updatedAt: "updated_at" }
+  timestamps: {
+    createdAt: "created_at",
+    updatedAt: "updated_at"
+  }
 });
 
 module.exports = mongoose.model('User', UserSchema);
