@@ -12,6 +12,7 @@ const MerchandiseSchema = new Schema({
     type: String
   },
   quantity: {
+
     type: Number
     // required: true,
   },
