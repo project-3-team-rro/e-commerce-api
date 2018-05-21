@@ -19,11 +19,15 @@ const flash          = require("connect-flash");
 const GoogleStrategy = require("passport-google-oauth").OAuth2Strategy;
 const cors           = require('cors');
 
-
+console.log('blah')
 
 mongoose.Promise = Promise;
 mongoose
-  .connect('mongodb://localhost/passport-example-app', {useMongoClient: true})
+
+  .connect('mongodb://localhost/e-commerce-api', {
+    useMongoClient: true
+  })
+
   .then(() => {
     console.log('Connected to Mongo!')
   }).catch(err => {
@@ -37,22 +41,26 @@ const debug = require('debug')(`${app_name}:${path.basename(__filename).split('.
 // Middleware Setup
 app.use(logger('dev'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({
+  extended: false
+}));
 app.use(cookieParser());
 
 // Express View engine setup
 
 app.use(require('node-sass-middleware')({
-  src:  path.join(__dirname, 'public'),
+  src: path.join(__dirname, 'public'),
   dest: path.join(__dirname, 'public'),
   sourceMap: true
 }));
+
 
 app.use(session({
   secret: "our-passport-local-strategy-app",
   resave: true,
   saveUninitialized: true
 }));
+
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');

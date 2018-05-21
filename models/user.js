@@ -8,15 +8,15 @@ const UserSchema = new Schema({
   },
   password: {
     type: String,
-    required: true,
+    required: true
   },
   username: {
     type: String,
-    required: true,
+    required: true
   },
   role: {
     type: String,
-    required: true,
+    required: true
   },
   address: {
     state: {
@@ -25,7 +25,7 @@ const UserSchema = new Schema({
     city: {
       type: String
     },
-    street :{
+    street: {
       type: String
     }
   },
@@ -35,12 +35,11 @@ const UserSchema = new Schema({
   bio: {
     type: String
   },
-  rating: {
+  raiting: {
     type: Number
-  },
-  // timestamps: {
-  //   type: true
-  // }
+  }
+}, {
+  timestamps: { createdAt: "created_at", updatedAt: "updated_at" }
 });
 
 module.exports = mongoose.model('User', UserSchema);
