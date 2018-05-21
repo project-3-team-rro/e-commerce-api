@@ -5,37 +5,36 @@ const MerchandiseSchema = new Schema({
   name: {
     type: String,
   },
-  picture: {
-    type: String,
-  },
-  price: {
-    type: Number,
-  },
   description: {
     type: String
   },
   category: {
     type: String
   },
-  new: {
-    type: String
-  },
   quantity: {
     type: Number
+    required: true,
+  },
+  picture: {
+    type: String,
+    required: true,
+  },
+  price: {
+    type: Number,
+    required: true,
+  },
+  isNew: {
+    type: String
+  },
+  availability: {
+    type: Boolean
   },
   seller: {
     type: String
-  },
-  timestamps: {
-    createdAt: {
-      type: Date,
-      default: Date.now
-    },
-    updatedAt: {
-      type: Date,
-      default: Date.now
-    }
-  },
+  }
+}, {
+  timestamps: { createdAt: "created_at", updatedAt: "updated_at" }
 });
+
 
 module.exports = mongoose.model('Merchandise', MerchandiseSchema);

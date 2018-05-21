@@ -14,33 +14,32 @@ const UserSchema = new Schema({
     type: String,
     required: true
   },
-  role {
+  role: {
     type: String,
     required: true
-  }
-  address {
-    state {
+  },
+  address: {
+    state: {
       type: String
     },
-    city {
+    city: {
       type: String
     },
-    street {
+    street: {
       type: String
     }
   },
-  avatar {
+  avatar: {
     type: String
   },
-  bio {
+  bio: {
     type: String
   },
-  raiting {
+  raiting: {
     type: Number
   }
-  timestamps: {
-    type: Date,
-  }
+}, {
+  timestamps: { createdAt: "created_at", updatedAt: "updated_at" }
 });
 
 module.exports = mongoose.model('User', UserSchema);

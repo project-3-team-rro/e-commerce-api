@@ -4,17 +4,15 @@ const Schema = mongoose.Schema;
 const CommentSchema = new Schema({
   user: {
     type: String,
-  } /// I THINK THATS WRONG I BELIVE ITS OBJECT.ID
+  },
   content: {
     type: String,
   },
   vote: {
     type: Number
-  },
-  timestamps: {
-    type: Date,
   }
-
+}, {
+  timestamps: { createdAt: "created_at", updatedAt: "updated_at" }
 });
 
 module.exports = mongoose.model('Comment', CommentSchema);
