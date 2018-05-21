@@ -43,6 +43,7 @@ authRoutes.post("/signup", (req, res, next) => {
 
     newUser.save((err) => {
       if (err) {
+        console.log(err);
         res.status(400).json({ message: 'Something went wrong' });
         return
       }
@@ -100,6 +101,7 @@ authRoutes.post("/logout", (req, res) => {
 
 
 authRoutes.get('/loggedin', (req, res, next) => {
+  console.log(req.user)
   if (req.isAuthenticated()) {
     res.json(req.user);
     return;
