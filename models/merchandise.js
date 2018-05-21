@@ -23,7 +23,7 @@ const MerchandiseSchema = new Schema({
     type: Number,
     required: true,
   },
-  isNew: {
+  new: {
     type: String
   },
   availability: {
