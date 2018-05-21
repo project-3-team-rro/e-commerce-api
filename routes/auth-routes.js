@@ -1,10 +1,10 @@
-const express     = require("express");
-const authRoutes  = express.Router();
-const passport    = require("passport");
+const express = require("express");
+const authRoutes = express.Router();
+const passport = require("passport");
 // User model
-const User        = require("../models/user");
+const User = require("../models/user");
 
-const flash       = require("connect-flash");
+const flash = require("connect-flash");
 
 const ensureLogin = require("connect-ensure-login");
 
@@ -23,13 +23,19 @@ authRoutes.post("/signup", (req, res, next) => {
   const password = req.body.password;
 
   if (username === "" || password === "") {
-    res.status(400).json({ message: 'Provide username and password' });
+    res.status(400).json({
+      message: 'Provide username and password'
+    });
     return;
   }
 
-  User.findOne({ username:username }, "username", (err, user) => {
+  User.findOne({
+    username: username
+  }, "username", (err, user) => {
     if (user !== null) {
-      res.status(400).json({ message: 'The username already exists' });
+      res.status(400).json({
+        message: 'The username already exists'
+      });
       return;
     }
 
@@ -37,29 +43,28 @@ authRoutes.post("/signup", (req, res, next) => {
     const hashPass = bcrypt.hashSync(password, salt);
 
     const newUser = new User({
-      username:username,
+      username: username,
       password: hashPass
     });
 
     newUser.save((err) => {
       if (err) {
-        console.log(err);
-        res.status(400).json({ message: 'Something went wrong' });
-        return
+        console.log(err)
+        res.status(400).json({
+          message: 'Something went wrong'
+        });
+        return;
       }
-
 
       req.login(newUser, (err) => {
         if (err) {
-          res.status(500).json({ message: 'Something went wrong' });
+          res.status(500).json({
+            message: 'Something went wrong'
+          });
           return;
         }
-
         res.status(200).json(req.user);
       });
-
-
-
     });
   });
 });
@@ -73,7 +78,9 @@ authRoutes.post("/signup", (req, res, next) => {
 authRoutes.post('/login', (req, res, next) => {
   passport.authenticate('local', (err, theUser, failureDetails) => {
     if (err) {
-      res.status(500).json({ message: 'Something went wrong' });
+      res.status(500).json({
+        message: 'Something went wrong'
+      });
       return;
     }
 
@@ -84,7 +91,9 @@ authRoutes.post('/login', (req, res, next) => {
 
     req.login(theUser, (err) => {
       if (err) {
-        res.status(500).json({ message: 'Something went wrong' });
+        res.status(500).json({
+          message: 'Something went wrong'
+        });
         return;
       }
 
@@ -96,7 +105,9 @@ authRoutes.post('/login', (req, res, next) => {
 
 authRoutes.post("/logout", (req, res) => {
   req.logout();
-  res.status(200).json({ message: 'Success' });
+  res.status(200).json({
+    message: 'Success'
+  });
 });
 
 
@@ -107,7 +118,9 @@ authRoutes.get('/loggedin', (req, res, next) => {
     return;
   }
 
-  res.json({ message: 'Unauthorized' });
+  res.json({
+    message: 'Unauthorized'
+  });
 });
 
 
@@ -122,7 +135,7 @@ function ensureAuthenticated(req, res, next) {
 }
 
 function checkRoles(role) {
-  return function(req, res, next) {
+  return function (req, res, next) {
     if (req.isAuthenticated() && req.user.role === role) {
       return next();
     } else {
@@ -133,16 +146,21 @@ function checkRoles(role) {
 
 authRoutes.get('/private', (req, res, next) => {
   if (req.isAuthenticated()) {
-    res.json({ message: 'This is a private message' });
+    res.json({
+      message: 'This is a private message'
+    });
     return;
   }
 
-  res.status(403).json({ message: 'Unauthorized' });
+  res.status(403).json({
+    message: 'Unauthorized'
+  });
 });
 
 authRoutes.get("/auth/google", passport.authenticate("google", {
   scope: ["https://www.googleapis.com/auth/plus.login",
-          "https://www.googleapis.com/auth/plus.profile.emails.read"]
+    "https://www.googleapis.com/auth/plus.profile.emails.read"
+  ]
 }));
 
 authRoutes.get("/auth/google/callback", passport.authenticate("google", {

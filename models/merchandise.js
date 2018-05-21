@@ -12,12 +12,13 @@ const MerchandiseSchema = new Schema({
     type: String
   },
   quantity: {
-    type: Number,
-    required: true,
+
+    type: Number
+    // required: true,
   },
   picture: {
     type: String,
-    required: true,
+    // required: true,
   },
   price: {
     type: Number,
@@ -33,7 +34,10 @@ const MerchandiseSchema = new Schema({
     type: String
   }
 }, {
-  timestamps: { createdAt: "created_at", updatedAt: "updated_at" }
+  timestamps: {
+    createdAt: "created_at",
+    updatedAt: "updated_at"
+  }
 });
 
 
