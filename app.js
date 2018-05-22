@@ -9,17 +9,17 @@ const mongoose = require('mongoose');
 const logger = require('morgan');
 const path = require('path');
 const User = require('./models/user');
-// const Room           = require('./models/');
-const session = require("express-session");
-const bcrypt = require("bcryptjs");
-const passport = require("passport");
-const LocalStrategy = require("passport-local").Strategy;
-const app = express();
-const flash = require("connect-flash");
+const session        = require("express-session");
+const bcrypt         = require("bcryptjs");
+const passport       = require("passport");
+const LocalStrategy  = require("passport-local").Strategy;
+const app            = express();
+const flash          = require("connect-flash");
+
 const GoogleStrategy = require("passport-google-oauth").OAuth2Strategy;
 const cors = require('cors');
 
-console.log('blah')
+
 
 mongoose.Promise = Promise;
 mongoose
@@ -55,11 +55,6 @@ app.use(require('node-sass-middleware')({
 }));
 
 
-app.use(session({
-  secret: "our-passport-local-strategy-app",
-  resave: true,
-  saveUninitialized: true
-}));
 
 
 app.set('views', path.join(__dirname, 'views'));
@@ -104,7 +99,7 @@ passport.use(new LocalStrategy({
         message: "Incorrect password"
       });
     }
-
+    
     return next(null, user);
   });
 }));
@@ -125,11 +120,11 @@ passport.use(new GoogleStrategy({
     if (user) {
       return done(null, user);
     }
-
+    
     const newUser = new User({
       googleID: profile.id
     });
-
+    
     newUser.save((err) => {
       if (err) {
         return done(err);
@@ -137,16 +132,27 @@ passport.use(new GoogleStrategy({
       done(null, newUser);
     });
   });
-
+  
 }));
 // end passport config area
 
 
-
+app.use(session({
+  secret: "our-passport-local-strategy-app",
+  resave: true,
+  saveUninitialized: true
+}));
+app.use(
+  cors({
+    credentials: true,                 // allow other domains to send cookies
+    origin: ["http://localhost:4200"]  // these are the domains that are allowed
+  })
+);
 
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(cors());
+
 
 
 const index = require('./routes/index');
