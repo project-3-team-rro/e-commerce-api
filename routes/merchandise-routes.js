@@ -4,22 +4,43 @@ const Merchandise = require('../models/merchandise')
 
 router.get('/merchandise', (req, res, next) => {
   Merchandise.find()
-    .then((item) => {
-      res.json(item);
+    .then(allItems => {
+      res.json(allItems);
     })
-    .catch((err) => {
+    .catch(err => {
       res.json(err)
     })
 });
 
 router.get('/merchandise/:merchandiseID', (req, res, next) => {
   Merchandise.findById(req.params.merchandiseID)
-    .then((item) => {
+    .then(item => {
       res.json(item);
     })
-    .catch((err) => {
+    .catch(err => {
       res.json(err)
     })
 });
+
+router.post('/merchandise/delete/:deleteID', (req, res, next) => {
+  Merchandise.findByIdAndRemove(req.params.deleteID)
+    .then(deletedItem => {
+      res.json(deletedItem);
+    })
+    .catch(err => {
+      res.json(err)
+    })
+});
+
+router.post('/merchandise/update/:id', (req, res, next) => {
+  Merchandise.findByIdAndUpdate(req.params.id, req.body)
+    .then(updatedItem => {
+      res.json(updatedItem)
+    })
+    .catch(err => {
+      res.json(err)
+    })
+
+})
 
 module.exports = router
