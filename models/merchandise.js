@@ -12,7 +12,6 @@ const MerchandiseSchema = new Schema({
     type: String
   },
   quantity: {
-
     type: Number
     // required: true,
   },
@@ -30,9 +29,10 @@ const MerchandiseSchema = new Schema({
   availability: {
     type: Boolean
   },
-  seller: {
-    type: String
-  }
+  seller: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User'
+  }]
 }, {
   timestamps: {
     createdAt: "created_at",
