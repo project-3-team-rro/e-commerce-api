@@ -2,9 +2,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const CommentSchema = new Schema({
-  user: {
-    type: String,
-  },
+  user: Schema.Types.ObjectId,
   content: {
     type: String,
   },
@@ -12,7 +10,10 @@ const CommentSchema = new Schema({
     type: Number
   }
 }, {
-  timestamps: { createdAt: "created_at", updatedAt: "updated_at" }
+  timestamps: {
+    createdAt: "created_at",
+    updatedAt: "updated_at"
+  }
 });
 
 module.exports = mongoose.model('Comment', CommentSchema);
