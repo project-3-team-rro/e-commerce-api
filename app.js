@@ -37,7 +37,6 @@ mongoose
 const app_name = require('./package.json').name;
 const debug = require('debug')(`${app_name}:${path.basename(__filename).split('.')[0]}`);
 
-
 // Middleware Setup
 app.use(logger('dev'));
 app.use(bodyParser.json());
@@ -53,9 +52,6 @@ app.use(require('node-sass-middleware')({
   dest: path.join(__dirname, 'public'),
   sourceMap: true
 }));
-
-
-
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
