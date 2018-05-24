@@ -71,12 +71,6 @@ authRoutes.post("/signup", (req, res, next) => {
   });
 });
 
-
-
-// authRoutes.get("/login", (req, res, next) => {
-//   res.render("auth/login", { "message": req.flash("error") });
-// });
-
 authRoutes.post('/login', (req, res, next) => {
   passport.authenticate('local', (err, theUser, failureDetails) => {
     if (err) {
@@ -112,7 +106,6 @@ authRoutes.post("/logout", (req, res) => {
   });
 });
 
-
 authRoutes.get('/loggedin', (req, res, next) => {
   console.log("User from logged in in backend: ",req.user)
   if (req.isAuthenticated()) {
@@ -125,7 +118,26 @@ authRoutes.get('/loggedin', (req, res, next) => {
   });
 });
 
-
+authRoutes.post("/updateprofile/:id", (req, res, next) => {
+	const email = req.body.email;
+	// if(password !== "") { const password = req.body.password; };
+  const address1 = req.body.address1;
+  const address2 = req.body.address2;
+  const city = req.body.city;
+  const zip = req.body.zip;
+  const bio = req.body.bio;
+	
+	User.findByIdAndUpdate(req.params.id, {
+		email: email,
+    address1: address1,
+    address2: address2,
+    city: city,
+    zip: zip,
+    bio: bio,
+	})
+  	.then(res.redirect("/profile"))
+  	.catch();
+})
 
 function ensureAuthenticated(req, res, next) {
   if (req.isAuthenticated()) {
