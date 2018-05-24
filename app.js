@@ -51,18 +51,10 @@ app.use(require('node-sass-middleware')({
   sourceMap: true
 }));
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
 
 
->>>>>>> master
-=======
->>>>>>> da337bb718184fe172f41375334ea43eec22eef3
-=======
 
->>>>>>> origin/master
+
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
 app.use(express.static(path.join(__dirname, 'public')));
@@ -143,57 +135,22 @@ passport.use(new LocalStrategy({
 // }));
 // end passport config area
 
+app.use(session({
+  secret: "our-passport-local-strategy-app",
+  resave: true,
+  saveUninitialized: true
+}));
 
+app.use(passport.initialize());
+app.use(passport.session());
+// app.use(cors());
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-
-=======
 app.use(
   cors({
     credentials: true, // allow other domains to send cookies
     origin: ["http://localhost:4200"] // these are the domains that are allowed
   })
 );
->>>>>>> master
-
-=======
->>>>>>> da337bb718184fe172f41375334ea43eec22eef3
-
-app.use(session({
-  secret: "our-passport-local-strategy-app",
-  resave: true,
-  saveUninitialized: true
-}));
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-
->>>>>>> da337bb718184fe172f41375334ea43eec22eef3
-
-app.use(passport.initialize());
-app.use(passport.session());
-// app.use(cors());
-
-app.use(
-  cors({
-    credentials: true,                 // allow other domains to send cookies
-    origin: ["http://localhost:4200"]  // these are the domains that are allowed
-  })
-);
-
-<<<<<<< HEAD
-=======
-
-app.use(passport.initialize());
-app.use(passport.session());
-// app.use(cors());
-
-
->>>>>>> master
-=======
-
->>>>>>> da337bb718184fe172f41375334ea43eec22eef3
 
 const index = require('./routes/index');
 app.use('/', index);

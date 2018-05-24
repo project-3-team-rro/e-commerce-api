@@ -6,27 +6,6 @@ const Cart = require('../models/cart');
 const User = require('../models/user')
 const Comment = require('../models/comment')
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-=======
-
->>>>>>> da337bb718184fe172f41375334ea43eec22eef3
-function checkRoles(role) {
-  return function (req, res, next) {
-    if (req.isAuthenticated() && req.user.role === role) {
-      return next();
-    } else {
-      res.redirect('/')
-    }
-  }
-}
-<<<<<<< HEAD
->>>>>>> master
-=======
-
->>>>>>> da337bb718184fe172f41375334ea43eec22eef3
-
 router.get('/merchandise', (req, res, next) => {
   Merchandise.find()
     .then(allItems => {
@@ -58,28 +37,28 @@ router.post('/cart', (req, res, next) => {
   var userId = req.body.userId;
   // console.log("BODYYYYYYY: ============", req.body)
   User.findById(userId)
-  .then(foundUser => {
-    Merchandise.findById(prodId)
-    .then(foundMerchandise => {
-      foundUser.cart.push(foundMerchandise);
-      console.log("user before saving: ", foundUser);
-      foundUser.save( err => {
-        console.log("user after the save: ", foundUser)
-  
-        if(err){
-          console.log("err while saving user in the cart: ", err)
-        }
-        res.json(foundUser)
-      } )
+    .then(foundUser => {
+      Merchandise.findById(prodId)
+        .then(foundMerchandise => {
+          foundUser.cart.push(foundMerchandise);
+          console.log("user before saving: ", foundUser);
+          foundUser.save(err => {
+            console.log("user after the save: ", foundUser)
 
+            if (err) {
+              console.log("err while saving user in the cart: ", err)
+            }
+            res.json(foundUser)
+          })
+
+        })
+        .catch(err => {
+          console.log("err while finding merchandise", err)
+        })
     })
-    .catch( err => {
-      console.log("err while finding merchandise", err)
+    .catch(error => {
+      console.log("error while finding a user: ", error)
     })
-  })
-  .catch( error => {
-    console.log("error while finding a user: ", error)
-  })
 });
 
 
