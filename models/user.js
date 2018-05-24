@@ -34,7 +34,12 @@ const UserSchema = new Schema({
   raiting: {
     type: Number
   },
-  cart: [{ type: Schema.Types.ObjectId, ref: "Merchandise" }]
+  cart: [{
+    type: Schema.Types.ObjectId,
+    ref: "Merchandise"
+  }]
+}, {
+  usePushEach: true
 }, {
   timestamps: {
     createdAt: "created_at",
