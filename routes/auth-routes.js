@@ -21,6 +21,7 @@ const bcryptSalt = 10;
 authRoutes.post("/signup", (req, res, next) => {
   const username = req.body.username;
   const password = req.body.password;
+  const role = req.body.role;
 
   if (username === "" || password === "") {
     res.status(400).json({
@@ -44,7 +45,8 @@ authRoutes.post("/signup", (req, res, next) => {
 
     const newUser = new User({
       username: username,
-      password: hashPass
+      password: hashPass,
+      role: role,
     });
 
     newUser.save((err) => {

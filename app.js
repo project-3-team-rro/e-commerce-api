@@ -9,12 +9,12 @@ const mongoose = require('mongoose');
 const logger = require('morgan');
 const path = require('path');
 const User = require('./models/user');
-const session        = require("express-session");
-const bcrypt         = require("bcryptjs");
-const passport       = require("passport");
-const LocalStrategy  = require("passport-local").Strategy;
-const app            = express();
-const flash          = require("connect-flash");
+const session = require("express-session");
+const bcrypt = require("bcryptjs");
+const passport = require("passport");
+const LocalStrategy = require("passport-local").Strategy;
+const app = express();
+const flash = require("connect-flash");
 
 const GoogleStrategy = require("passport-google-oauth").OAuth2Strategy;
 const cors = require('cors');
@@ -62,17 +62,18 @@ app.locals.title = 'Express - Generated with IronGenerator';
 app.use(flash());
 
 //passport config area
-passport.serializeUser((user, cb) => {
-  cb(null, user._id);
+passport.serializeUser((userFromDb, done) => {
+  done(null, userFromDb._id);
 });
 
-passport.deserializeUser((id, cb) => {
-  User.findById(id, (err, user) => {
-    if (err) {
-      return cb(err);
-    }
-    cb(null, user);
-  });
+passport.deserializeUser((idFromSession, done) => {
+  User.findById(idFromSession)
+    .then((userFromDb) => {
+      done(null, userFromDb);
+    })
+    .catch((err) => {
+      done(err);
+    });
 });
 
 passport.use(new LocalStrategy({
@@ -94,44 +95,42 @@ passport.use(new LocalStrategy({
         message: "Incorrect password"
       });
     }
-    
+
     return next(null, user);
   });
 }));
 
 
 
-passport.use(new GoogleStrategy({
-  clientID: "client ID here",
-  clientSecret: "client secret here",
-  callbackURL: "/auth/google/callback"
-}, (accessToken, refreshToken, profile, done) => {
-  User.findOne({
-    googleID: profile.id
-  }, (err, user) => {
-    if (err) {
-      return done(err);
-    }
-    if (user) {
-      return done(null, user);
-    }
-    
-    const newUser = new User({
-      googleID: profile.id
-    });
-    
-    newUser.save((err) => {
-      if (err) {
-        return done(err);
-      }
-      done(null, newUser);
-    });
-  });
-  
-}));
+// passport.use(new GoogleStrategy({
+//   clientID: "client ID here",
+//   clientSecret: "client secret here",
+//   callbackURL: "/auth/google/callback"
+// }, (accessToken, refreshToken, profile, done) => {
+//   User.findOne({
+//     googleID: profile.id
+//   }, (err, user) => {
+//     if (err) {
+//       return done(err);
+//     }
+//     if (user) {
+//       return done(null, user);
+//     }
+
+//     const newUser = new User({
+//       googleID: profile.id
+//     });
+
+//     newUser.save((err) => {
+//       if (err) {
+//         return done(err);
+//       }
+//       done(null, newUser);
+//     });
+//   });
+
+// }));
 // end passport config area
-
-
 
 
 
@@ -141,6 +140,7 @@ app.use(session({
   resave: true,
   saveUninitialized: true
 }));
+
 
 app.use(passport.initialize());
 app.use(passport.session());
@@ -152,6 +152,7 @@ app.use(
     origin: ["http://localhost:4200"]  // these are the domains that are allowed
   })
 );
+
 
 
 const index = require('./routes/index');

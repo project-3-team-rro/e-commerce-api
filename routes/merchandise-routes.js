@@ -7,6 +7,17 @@ const User = require('../models/user')
 const Comment = require('../models/comment')
 
 
+function checkRoles(role) {
+  return function (req, res, next) {
+    if (req.isAuthenticated() && req.user.role === role) {
+      return next();
+    } else {
+      res.redirect('/')
+    }
+  }
+}
+
+
 router.get('/merchandise', (req, res, next) => {
   Merchandise.find()
     .then(allItems => {
@@ -102,6 +113,8 @@ router.post('/merchandise/create', (req, res, next) => {
     category: req.body.category,
     new: req.body.new,
     quantity: req.body.quantity,
+    description: req.body.description,
+    seller: req.user.id,
   });
   newMerchandise.save()
     .then(() => {
