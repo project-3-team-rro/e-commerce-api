@@ -99,15 +99,25 @@ authRoutes.post('/login', (req, res, next) => {
   })(req, res, next);
 });
 
-authRoutes.post("/logout", (req, res) => {
+authRoutes.delete("/logout", (req, res) => {
   req.logout();
+  req.session.destroy();
   res.status(200).json({
     message: 'Success'
   });
 });
 
+authRoutes.get('/userInfo', isLoggedIn, (req, res) => {
+  User.findById(req.user, function (err, fullUser) {
+    if (err) {
+      throw err;
+      res.json(fullUser)
+    }
+  })
+});
+
 authRoutes.get('/loggedin', (req, res, next) => {
-  console.log("User from logged in in backend: ",req.user)
+  console.log("User from logged in in backend: ", req.user)
   if (req.isAuthenticated()) {
     res.json(req.user);
     return;
@@ -119,24 +129,24 @@ authRoutes.get('/loggedin', (req, res, next) => {
 });
 
 authRoutes.post("/updateprofile/:id", (req, res, next) => {
-	const email = req.body.email;
-	// if(password !== "") { const password = req.body.password; };
+  const email = req.body.email;
+  // if(password !== "") { const password = req.body.password; };
   const address1 = req.body.address1;
   const address2 = req.body.address2;
   const city = req.body.city;
   const zip = req.body.zip;
   const bio = req.body.bio;
-	
-	User.findByIdAndUpdate(req.params.id, {
-		email: email,
-    address1: address1,
-    address2: address2,
-    city: city,
-    zip: zip,
-    bio: bio,
-	})
-  	.then(res.redirect("/profile"))
-  	.catch();
+
+  User.findByIdAndUpdate(req.params.id, {
+      email: email,
+      address1: address1,
+      address2: address2,
+      city: city,
+      zip: zip,
+      bio: bio,
+    })
+    .then(res.redirect("/profile"))
+    .catch();
 })
 
 function ensureAuthenticated(req, res, next) {
@@ -170,6 +180,14 @@ authRoutes.get('/private', (req, res, next) => {
     message: 'Unauthorized'
   });
 });
+
+function isLoggedIn(req, res, next) {
+  if (req.isAuthenticated()) {
+    next();
+  } else {
+    res.json(false);
+  }
+}
 
 // authRoutes.get("/auth/google", passport.authenticate("google", {
 //   scope: ["https://www.googleapis.com/auth/plus.login",
