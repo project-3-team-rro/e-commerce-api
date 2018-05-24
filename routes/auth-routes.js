@@ -157,15 +157,15 @@ authRoutes.get('/private', (req, res, next) => {
   });
 });
 
-authRoutes.get("/auth/google", passport.authenticate("google", {
-  scope: ["https://www.googleapis.com/auth/plus.login",
-    "https://www.googleapis.com/auth/plus.profile.emails.read"
-  ]
-}));
+// authRoutes.get("/auth/google", passport.authenticate("google", {
+//   scope: ["https://www.googleapis.com/auth/plus.login",
+//     "https://www.googleapis.com/auth/plus.profile.emails.read"
+//   ]
+// }));
 
-authRoutes.get("/auth/google/callback", passport.authenticate("google", {
-  failureRedirect: "/",
-  successRedirect: "/private-page"
-}));
+// authRoutes.get("/auth/google/callback", passport.authenticate("google", {
+//   failureRedirect: "/",
+//   successRedirect: "/private-page"
+// }));
 
 module.exports = authRoutes;

@@ -1,8 +1,10 @@
 const express = require('express');
 const router = express.Router();
 const Merchandise = require('../models/merchandise')
+
 const Cart = require('../models/cart');
-const User = require('../models/user');
+const User = require('../models/user')
+const Comment = require('../models/comment')
 
 
 router.get('/merchandise', (req, res, next) => {
@@ -91,5 +93,23 @@ router.post('/merchandise/update/:id', (req, res, next) => {
     })
 
 })
+
+router.post('/merchandise/create', (req, res, next) => {
+  const newMerchandise = new Merchandise({
+    name: req.body.name,
+    picture: req.body.picture,
+    price: req.body.price,
+    category: req.body.category,
+    new: req.body.new,
+    quantity: req.body.quantity,
+  });
+  newMerchandise.save()
+    .then(() => {
+      res.json(newMerchandise)
+    })
+    .catch((err) => {
+      res.json(err)
+    });
+});
 
 module.exports = router
