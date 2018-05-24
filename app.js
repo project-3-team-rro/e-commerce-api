@@ -53,10 +53,13 @@ app.use(require('node-sass-middleware')({
 }));
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 
 
 >>>>>>> master
+=======
+>>>>>>> da337bb718184fe172f41375334ea43eec22eef3
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
 app.use(express.static(path.join(__dirname, 'public')));
@@ -140,6 +143,7 @@ passport.use(new LocalStrategy({
 
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 =======
 app.use(
@@ -150,6 +154,8 @@ app.use(
 );
 >>>>>>> master
 
+=======
+>>>>>>> da337bb718184fe172f41375334ea43eec22eef3
 
 app.use(session({
   secret: "our-passport-local-strategy-app",
@@ -157,6 +163,10 @@ app.use(session({
   saveUninitialized: true
 }));
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+
+>>>>>>> da337bb718184fe172f41375334ea43eec22eef3
 
 app.use(passport.initialize());
 app.use(passport.session());
@@ -169,6 +179,7 @@ app.use(
   })
 );
 
+<<<<<<< HEAD
 =======
 
 app.use(passport.initialize());
@@ -177,6 +188,9 @@ app.use(passport.session());
 
 
 >>>>>>> master
+=======
+
+>>>>>>> da337bb718184fe172f41375334ea43eec22eef3
 
 const index = require('./routes/index');
 app.use('/', index);

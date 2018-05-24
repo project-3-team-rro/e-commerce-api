@@ -7,7 +7,11 @@ const User = require('../models/user')
 const Comment = require('../models/comment')
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+
+>>>>>>> da337bb718184fe172f41375334ea43eec22eef3
 function checkRoles(role) {
   return function (req, res, next) {
     if (req.isAuthenticated() && req.user.role === role) {
@@ -17,7 +21,11 @@ function checkRoles(role) {
     }
   }
 }
+<<<<<<< HEAD
 >>>>>>> master
+=======
+
+>>>>>>> da337bb718184fe172f41375334ea43eec22eef3
 
 router.get('/merchandise', (req, res, next) => {
   Merchandise.find()
