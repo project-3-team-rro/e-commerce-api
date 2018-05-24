@@ -1,8 +1,11 @@
 const express = require('express');
 const router = express.Router();
 const Merchandise = require('../models/merchandise')
+
+const Cart = require('../models/cart');
 const User = require('../models/user')
 const Comment = require('../models/comment')
+
 
 function checkRoles(role) {
   return function (req, res, next) {
@@ -14,6 +17,7 @@ function checkRoles(role) {
   }
 }
 
+
 router.get('/merchandise', (req, res, next) => {
   Merchandise.find()
     .then(allItems => {
@@ -23,6 +27,52 @@ router.get('/merchandise', (req, res, next) => {
       res.json(err)
     })
 });
+
+
+// router.get('/cart', () => {
+//   console.log("herre")
+// })
+// console.log('in cart routers')
+// router.get('/cart', (req, res, next) => {
+//   console.log('caling get')
+//   Cart.find()
+//     .then(items => {
+//       res.json(items);
+//     })
+//     .catch(err => {
+//       res.json(err);
+//     })
+// });
+
+router.post('/cart', (req, res, next) => {
+  var prodId = req.body.prodId;
+  var userId = req.body.userId;
+  // console.log("BODYYYYYYY: ============", req.body)
+  User.findById(userId)
+  .then(foundUser => {
+    Merchandise.findById(prodId)
+    .then(foundMerchandise => {
+      foundUser.cart.push(foundMerchandise);
+      console.log("user before saving: ", foundUser);
+      foundUser.save( err => {
+        console.log("user after the save: ", foundUser)
+  
+        if(err){
+          console.log("err while saving user in the cart: ", err)
+        }
+        res.json(foundUser)
+      } )
+
+    })
+    .catch( err => {
+      console.log("err while finding merchandise", err)
+    })
+  })
+  .catch( error => {
+    console.log("error while finding a user: ", error)
+  })
+});
+
 
 router.get('/merchandise/:merchandiseID', (req, res, next) => {
   Merchandise.findById(req.params.merchandiseID)
