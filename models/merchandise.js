@@ -29,10 +29,9 @@ const MerchandiseSchema = new Schema({
   availability: {
     type: Boolean
   },
-  seller: [{
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'User'
-  }]
+  seller: {
+    type: Schema.Types.ObjectId,
+  }
 }, {
   timestamps: {
     createdAt: "created_at",
