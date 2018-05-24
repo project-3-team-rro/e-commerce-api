@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const Merchandise = require('./merchandise');
 
 const UserSchema = new Schema({
   email: {
@@ -32,7 +33,8 @@ const UserSchema = new Schema({
   },
   raiting: {
     type: Number
-  }
+  },
+  cart: [{ type: Schema.Types.ObjectId, ref: "Merchandise" }]
 }, {
   timestamps: {
     createdAt: "created_at",
