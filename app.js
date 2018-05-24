@@ -19,8 +19,6 @@ const flash = require("connect-flash");
 const GoogleStrategy = require("passport-google-oauth").OAuth2Strategy;
 const cors = require('cors');
 
-
-
 mongoose.Promise = Promise;
 mongoose
 
@@ -53,11 +51,7 @@ app.use(require('node-sass-middleware')({
   sourceMap: true
 }));
 
-<<<<<<< HEAD
-=======
 
-
->>>>>>> master
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
 app.use(express.static(path.join(__dirname, 'public')));
@@ -140,13 +134,6 @@ passport.use(new LocalStrategy({
 
 
 
-app.use(
-  cors({
-    credentials: true, // allow other domains to send cookies
-    origin: ["http://localhost:4200"] // these are the domains that are allowed
-  })
-);
-
 
 app.use(session({
   secret: "our-passport-local-strategy-app",
@@ -154,9 +141,17 @@ app.use(session({
   saveUninitialized: true
 }));
 
+
 app.use(passport.initialize());
 app.use(passport.session());
 // app.use(cors());
+
+app.use(
+  cors({
+    credentials: true,                 // allow other domains to send cookies
+    origin: ["http://localhost:4200"]  // these are the domains that are allowed
+  })
+);
 
 
 
@@ -166,5 +161,7 @@ const authRouteVariableThing = require('./routes/auth-routes')
 app.use('/api', authRouteVariableThing);
 const merchandiseRoutes = require('./routes/merchandise-routes');
 app.use('/api', merchandiseRoutes);
+const cartRoutes = require('./routes/cart-routes');
+app.use('/api', cartRoutes);
 
 module.exports = app;
