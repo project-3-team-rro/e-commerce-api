@@ -135,6 +135,8 @@ passport.use(new LocalStrategy({
 // }));
 // end passport config area
 
+
+
 app.use(session({
   secret: "our-passport-local-strategy-app",
   resave: true,
@@ -151,6 +153,7 @@ app.use(
     origin: ["http://localhost:4200"] // these are the domains that are allowed
   })
 );
+
 
 const index = require('./routes/index');
 app.use('/', index);
