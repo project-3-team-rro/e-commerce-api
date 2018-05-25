@@ -31,8 +31,7 @@ const MerchandiseSchema = new Schema({
     type: Boolean
   },
   seller: [{
-    type: Schema.Types.ObjectId,
-    ref: "User"
+    type: String,
   }],
 }, {
   timestamps: {

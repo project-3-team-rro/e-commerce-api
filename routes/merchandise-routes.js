@@ -94,6 +94,7 @@ router.post('/merchandise/update/:id', (req, res, next) => {
 })
 
 router.post('/merchandise/create', (req, res, next) => {
+  console.log("post create ====================== ", req.user);
   const newMerchandise = new Merchandise({
     name: req.body.name,
     picture: req.body.picture,
@@ -102,7 +103,7 @@ router.post('/merchandise/create', (req, res, next) => {
     new: req.body.new,
     quantity: req.body.quantity,
     description: req.body.description,
-    seller: req.user._id,
+    seller: req.user.username,
   });
   newMerchandise.save()
     .then(() => {
