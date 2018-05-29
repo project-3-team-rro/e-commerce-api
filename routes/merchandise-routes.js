@@ -2,10 +2,6 @@ const express = require('express');
 const router = express.Router();
 const Merchandise = require('../models/merchandise')
 
-const Cart = require('../models/cart');
-const User = require('../models/user')
-const Comment = require('../models/comment')
-
 router.get('/merchandise', (req, res, next) => {
   Merchandise.find()
     .then(allItems => {

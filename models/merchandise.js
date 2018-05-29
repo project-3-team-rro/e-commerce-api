@@ -33,6 +33,7 @@ const MerchandiseSchema = new Schema({
   seller: [{
     type: String,
   }],
+  comment: Schema.Types.ObjectId,
 }, {
   timestamps: {
     createdAt: "created_at",
