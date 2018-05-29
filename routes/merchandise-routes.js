@@ -90,7 +90,6 @@ router.post('/merchandise/update/:id', (req, res, next) => {
     .catch(err => {
       res.json(err)
     })
-
 })
 
 router.post('/merchandise/create', (req, res, next) => {
