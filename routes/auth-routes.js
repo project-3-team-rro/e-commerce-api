@@ -122,7 +122,6 @@ authRoutes.get('/loggedin', (req, res, next) => {
     res.json(req.user);
     return;
   }
-
   res.json({
     message: 'Unauthorized'
   });
