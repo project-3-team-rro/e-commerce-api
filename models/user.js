@@ -33,7 +33,7 @@ const UserSchema = new Schema({
   bio: {
     type: String
   },
-  raiting: {
+  rating: {
     type: Number
   },
   cart: [{

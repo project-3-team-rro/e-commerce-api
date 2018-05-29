@@ -128,6 +128,7 @@ authRoutes.get('/loggedin', (req, res, next) => {
 });
 
 authRoutes.post("/updateprofile/:id", (req, res, next) => {
+
   console.log("--------------------", req.body)
 
   const changes = {address:{}}
@@ -143,6 +144,7 @@ authRoutes.post("/updateprofile/:id", (req, res, next) => {
   User.findByIdAndUpdate(req.params.id, changes)
   // .then(res.redirect("/profile"))
   .catch();
+
 })
 
 function ensureAuthenticated(req, res, next) {
