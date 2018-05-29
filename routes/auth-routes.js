@@ -138,15 +138,15 @@ authRoutes.post("/updateprofile/:id", (req, res, next) => {
   const bio = req.body.bio;
 
   User.findByIdAndUpdate(req.params.id, {
-      email: email,
-      address1: address1,
-      address2: address2,
-      city: city,
-      zip: zip,
-      bio: bio,
-    })
-    .then(res.redirect("/profile"))
-    .catch();
+    email: email,
+    address1: address1,
+    address2: address2,
+    city: city,
+    zip: zip,
+    bio: bio,
+  })
+  // .then(res.redirect("/profile"))
+  // .catch();
 })
 
 function ensureAuthenticated(req, res, next) {
