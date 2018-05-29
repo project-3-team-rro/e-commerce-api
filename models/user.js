@@ -23,7 +23,9 @@ const UserSchema = new Schema({
     },
     street: {
       type: String
-    }
+    },
+    street2: String,
+    zip: String
   },
   avatar: {
     type: String

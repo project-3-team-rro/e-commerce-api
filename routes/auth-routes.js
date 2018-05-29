@@ -128,24 +128,21 @@ authRoutes.get('/loggedin', (req, res, next) => {
 });
 
 authRoutes.post("/updateprofile/:id", (req, res, next) => {
-  const email = req.body.email;
-  // if(password !== "") { const password = req.body.password; };
-  const address1 = req.body.address1;
-  const address2 = req.body.address2;
-  const city = req.body.city;
-  const zip = req.body.zip;
-  const bio = req.body.bio;
+  console.log("--------------------", req.body)
 
-  User.findByIdAndUpdate(req.params.id, {
-    email: email,
-    address1: address1,
-    address2: address2,
-    city: city,
-    zip: zip,
-    bio: bio,
-  })
+  const changes = {address:{}}
+  changes.email = req.body.email; 
+  changes.address.street = req.body.address.street;
+  changes.address.street2 = req.body.address.streetSecondLine;
+  changes.address.city = req.body.address.city;
+  changes.address.state = req.body.address.state;
+  changes.address.zip = req.body.address.zip;
+  // const bio = req.body.bio;
+  if(req.body.password) { changes.password = req.body.password };
+
+  User.findByIdAndUpdate(req.params.id, changes)
   // .then(res.redirect("/profile"))
-  // .catch();
+  .catch();
 })
 
 function ensureAuthenticated(req, res, next) {
