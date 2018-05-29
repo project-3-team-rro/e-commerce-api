@@ -144,7 +144,7 @@ authRoutes.post("/updateprofile/:id", (req, res, next) => {
       zip: zip,
       bio: bio,
     })
-    .then(res.redirect("/profile"))
+    .then(res.redirect("/"))
     .catch();
 })
 
