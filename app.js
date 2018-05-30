@@ -20,17 +20,13 @@ const GoogleStrategy = require("passport-google-oauth").OAuth2Strategy;
 const cors = require('cors');
 
 mongoose.Promise = Promise;
-mongoose
+mongoose.connect(process.env.MONGODB_URI);
 
-  .connect('mongodb://localhost/e-commerce-api', {
-    useMongoClient: true
-  })
-
-  .then(() => {
-    console.log('Connected to Mongo!')
-  }).catch(err => {
-    console.error('Error connecting to mongo', err)
-  });
+  // .then(() => {
+  //   console.log('Connected to Mongo!')
+  // }).catch(err => {
+  //   console.error('Error connecting to mongo', err)
+  // });
 
 const app_name = require('./package.json').name;
 const debug = require('debug')(`${app_name}:${path.basename(__filename).split('.')[0]}`);
@@ -163,5 +159,10 @@ const merchandiseRoutes = require('./routes/merchandise-routes');
 app.use('/api', merchandiseRoutes);
 const cartRoutes = require('./routes/cart-routes');
 app.use('/api', cartRoutes);
+
+
+app.use((req, res, next)=>{
+  res.sendFile(__dirname + '/public/index.html');
+});
 
 module.exports = app;
