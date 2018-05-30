@@ -20,13 +20,12 @@ const GoogleStrategy = require("passport-google-oauth").OAuth2Strategy;
 const cors = require('cors');
 
 mongoose.Promise = Promise;
-mongoose.connect(process.env.MONGODB_URI);
-
-  // .then(() => {
-  //   console.log('Connected to Mongo!')
-  // }).catch(err => {
-  //   console.error('Error connecting to mongo', err)
-  // });
+mongoose.connect(process.env.MONGODB_URI)
+  .then(() => {
+    console.log('Connected to Mongo!')
+  }).catch(err => {
+    console.error('Error connecting to mongo', err)
+  });
 
 const app_name = require('./package.json').name;
 const debug = require('debug')(`${app_name}:${path.basename(__filename).split('.')[0]}`);
