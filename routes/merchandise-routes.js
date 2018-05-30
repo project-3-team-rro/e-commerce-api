@@ -109,10 +109,11 @@ router.post('/merchandise/create', (req, res, next) => {
     });
 });
 
-router.post('/comment', (req, res) => {
+router.post('/comment/create', (req, res, next) => {
+  // console.log("post create ====================== ", req.user);
   const newComment = new Merchandise({
     comment: req.body.comment,
-    author: req.user.username,
+    // typeID: req.merchandise.,
   });
   newComment.save()
     .then(() => {
@@ -121,6 +122,8 @@ router.post('/comment', (req, res) => {
     .catch((err) => {
       res.json(err)
     });
-})
+});
+
+
 
 module.exports = router

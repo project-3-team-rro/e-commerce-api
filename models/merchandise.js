@@ -35,7 +35,7 @@ const MerchandiseSchema = new Schema({
   }],
   comments: [{
     comment: String,
-    author: String,
+    typeID: Schema.Types.ObjectId,
     time: Date,
   }],
 }, {
