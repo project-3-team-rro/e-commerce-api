@@ -9,6 +9,7 @@ const mongoose = require('mongoose');
 const logger = require('morgan');
 const path = require('path');
 const User = require('./models/user');
+const Merchandise = require('./models/merchandise');
 const session = require("express-session");
 const bcrypt = require("bcryptjs");
 const passport = require("passport");
@@ -163,5 +164,7 @@ const merchandiseRoutes = require('./routes/merchandise-routes');
 app.use('/api', merchandiseRoutes);
 const cartRoutes = require('./routes/cart-routes');
 app.use('/api', cartRoutes);
+const commentRoutes = require('./routes/comment-routes');
+app.use('/api', commentRoutes);
 
 module.exports = app;

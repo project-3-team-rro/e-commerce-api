@@ -109,20 +109,7 @@ router.post('/merchandise/create', (req, res, next) => {
     });
 });
 
-router.post('/comment/create', (req, res, next) => {
-  // console.log("post create ====================== ", req.user);
-  const newComment = new Merchandise({
-    comment: req.body.comment,
-    // typeID: req.merchandise.,
-  });
-  newComment.save()
-    .then(() => {
-      res.json(newComment)
-    })
-    .catch((err) => {
-      res.json(err)
-    });
-});
+
 
 
 
