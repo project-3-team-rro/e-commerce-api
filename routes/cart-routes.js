@@ -28,6 +28,35 @@ router.get('/user/:id/cart', (req, res, next) => {
   } )
 });
 
+router.post('/cart', (req, res, next) => {
+  var prodId = req.body.prodId;
+  var userId = req.body.userId;
+  console.log("BODYYYYYYY: ============", req.body)
+  User.findById(userId)
+    .then(foundUser => {
+      Merchandise.findById(prodId)
+        .then(foundMerchandise => {
+          foundUser.cart.push(foundMerchandise);
+          console.log("user before saving: ", foundUser);
+          foundUser.save(err => {
+            console.log("user after the save: ", foundUser)
+
+            if (err) {
+              console.log("err while saving user in the cart: ", err)
+            }
+            res.json(foundUser)
+          })
+
+        })
+        .catch(err => {
+          console.log("err while finding merchandise", err)
+        })
+    })
+    .catch(error => {
+      console.log("error while finding a user: ", error)
+    })
+});
+
 
 
 module.exports = router
