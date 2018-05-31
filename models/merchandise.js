@@ -33,10 +33,10 @@ const MerchandiseSchema = new Schema({
   seller: [{
     type: String,
   }],
-  // _comments: [{
-  //   typeID: Schema.Types.ObjectId,
-  //   ref: 'Comment',
-  // }],
+  comments: [{
+    type: Schema.Types.ObjectId,
+    ref: 'Comment',
+  }],
 }, {
   timestamps: {
     createdAt: "created_at",
