@@ -9,6 +9,7 @@ const mongoose = require('mongoose');
 const logger = require('morgan');
 const path = require('path');
 const User = require('./models/user');
+const Merchandise = require('./models/merchandise');
 const session = require("express-session");
 const bcrypt = require("bcryptjs");
 const passport = require("passport");
@@ -20,12 +21,22 @@ const GoogleStrategy = require("passport-google-oauth").OAuth2Strategy;
 const cors = require('cors');
 
 mongoose.Promise = Promise;
+<<<<<<< HEAD
 mongoose.connect(process.env.MONGODB_URI, {useMongoClient: true})
   .then(() => {
     console.log('Connected to Mongo!')
   }).catch(err => {
     console.error('Error connecting to mongo', err)
   });
+=======
+mongoose.connect('mongodb://localhost/e-commerce-api', {
+  useMongoClient: true
+}).then(() => {
+  console.log('Connected to Mongo!')
+}).catch(err => {
+  console.error('Error connecting to mongo', err)
+});
+>>>>>>> d577a555e97b793dd3040ef8c27300bbe824dabf
 
 const app_name = require('./package.json').name;
 const debug = require('debug')(`${app_name}:${path.basename(__filename).split('.')[0]}`);
@@ -45,10 +56,6 @@ app.use(require('node-sass-middleware')({
   dest: path.join(__dirname, 'public'),
   sourceMap: true
 }));
-
-
-
-
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
@@ -97,7 +104,6 @@ passport.use(new LocalStrategy({
     return next(null, user);
   });
 }));
-
 
 
 // passport.use(new GoogleStrategy({
@@ -158,6 +164,8 @@ const merchandiseRoutes = require('./routes/merchandise-routes');
 app.use('/api', merchandiseRoutes);
 const cartRoutes = require('./routes/cart-routes');
 app.use('/api', cartRoutes);
+const commentRoutes = require('./routes/comment-routes');
+app.use('/api', commentRoutes);
 
 
 app.use((req, res, next)=>{
