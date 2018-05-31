@@ -20,7 +20,7 @@ router.post('/comments', isLoggedIn, (req, res, next) => {
     _author: req.user.username,
     content: req.body.content,
     date: req.body.date,
-    _merchandise: req.merchandise.name
+    // _merchandise: req.merchandise.name
   });
   newComment.save()
     .then(() => {
