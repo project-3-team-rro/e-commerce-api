@@ -89,7 +89,7 @@ router.post('/merchandise/update/:id', (req, res, next) => {
 })
 
 router.post('/merchandise/create', (req, res, next) => {
-  console.log("post create ====================== ", req.user);
+  // console.log("post create ====================== ", req.user);
   const newMerchandise = new Merchandise({
     name: req.body.name,
     picture: req.body.picture,
@@ -99,6 +99,7 @@ router.post('/merchandise/create', (req, res, next) => {
     quantity: req.body.quantity,
     description: req.body.description,
     seller: req.user.username,
+    comments: req.body._id,
   });
   newMerchandise.save()
     .then(() => {
@@ -108,5 +109,9 @@ router.post('/merchandise/create', (req, res, next) => {
       res.json(err)
     });
 });
+
+
+
+
 
 module.exports = router
