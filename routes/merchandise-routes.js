@@ -99,7 +99,7 @@ router.post('/merchandise/create', (req, res, next) => {
     quantity: req.body.quantity,
     description: req.body.description,
     seller: req.user.username,
-    comments: req.comments._id,
+    // comments: req.comments._id,
   });
   newMerchandise.save()
     .then(() => {
