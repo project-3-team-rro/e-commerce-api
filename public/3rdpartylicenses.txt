@@ -1,4 +1,4 @@
-@angular/material@6.2.0
+@angular/material@6.1.0
 MIT
 The MIT License
 
