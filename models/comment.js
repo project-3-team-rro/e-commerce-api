@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const Merchandise = require('./user');
 
 const CommentSchema = new Schema({
   // _author: {
@@ -15,9 +16,6 @@ const CommentSchema = new Schema({
   date: {
     type: Date,
     default: Date.now
-  },
-  _merchandise: {
-    type: String,
   },
 }, {
   timestamps: {
