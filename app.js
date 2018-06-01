@@ -21,22 +21,14 @@ const GoogleStrategy = require("passport-google-oauth").OAuth2Strategy;
 const cors = require('cors');
 
 mongoose.Promise = Promise;
-<<<<<<< HEAD
+
 mongoose.connect(process.env.MONGODB_URI, {useMongoClient: true})
   .then(() => {
     console.log('Connected to Mongo!')
   }).catch(err => {
     console.error('Error connecting to mongo', err)
   });
-=======
-mongoose.connect('mongodb://localhost/e-commerce-api', {
-  useMongoClient: true
-}).then(() => {
-  console.log('Connected to Mongo!')
-}).catch(err => {
-  console.error('Error connecting to mongo', err)
-});
->>>>>>> d577a555e97b793dd3040ef8c27300bbe824dabf
+
 
 const app_name = require('./package.json').name;
 const debug = require('debug')(`${app_name}:${path.basename(__filename).split('.')[0]}`);
