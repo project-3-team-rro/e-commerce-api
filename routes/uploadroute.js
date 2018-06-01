@@ -1,6 +1,6 @@
 const express = require('express');
 const router  = express.Router();
-const merchandise = require('../models/merchandise');
+const Merchandise = require('../models/merchandise');
 const multer = require('multer');
 const path = require('path');
 const myUploader = multer({
@@ -15,12 +15,22 @@ router.get('/upload/create', (req, res, next) => {
 
 // post route to create listing
 router.post('/upload', myUploader.single('picture'), (req, res, next) => {
-  const newRental = new Listing({
-  
-    picture: `/images/${req.file.filename}`,
-    listingOwner: req.user._id
+  console.log(req.body);
+  const merchphoto = new Merchandise({
+    price: req.body.price,
+  name:req.body.name,
+  description: req.body.description,
+  category: req.body.category,
+  quantity: req.body.quantity,
+  new: req.body.new,
+  availability: req.body.availability,
+  seller: req.body.seller,
+  picture: `/images/${req.file.filename}`
   });
-  newRental.save()
+
+  console.log(merchphoto);  
+
+  merchphoto.save()
   .then( () => {
 
     // console.log("Saved in DB: ", newRental)
