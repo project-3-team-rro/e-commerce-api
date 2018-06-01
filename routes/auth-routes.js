@@ -178,7 +178,7 @@ authRoutes.get('/private', (req, res, next) => {
 
 function isLoggedIn(req, res, next) {
   if (req.isAuthenticated()) {
-    next();
+    res.json(req.user);
   } else {
     res.json(false);
   }
