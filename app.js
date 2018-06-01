@@ -160,6 +160,8 @@ app.use('/api', cartRoutes);
 const commentRoutes = require('./routes/comment-routes');
 app.use('/api', commentRoutes);
 
+const uploadRoute = require('./routes/uploadroute.js');
+app.use('/', uploadRoute);
 
 app.use((req, res, next) => {
   res.sendFile(__dirname + '/public/index.html');
