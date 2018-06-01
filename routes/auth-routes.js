@@ -123,19 +123,25 @@ authRoutes.post("/updateprofile/:id", (req, res, next) => {
 
   console.log("--------------------", req.body)
 
-  const changes = {address:{}}
-  changes.email = req.body.email; 
+  const changes = {
+    address: {}
+  }
+  changes.email = req.body.email;
   changes.address.street = req.body.address.street;
   changes.address.street2 = req.body.address.streetSecondLine;
   changes.address.city = req.body.address.city;
   changes.address.state = req.body.address.state;
   changes.address.zip = req.body.address.zip;
   // const bio = req.body.bio;
-  if(req.body.password) { changes.password = req.body.password };
+  if (req.body.password) {
+    changes.password = req.body.password
+  };
 
   User.findByIdAndUpdate(req.params.id, changes)
-  // .then(res.redirect("/profile"))
-  .catch();
+    // .then(res.redirect("/profile"))
+    .catch(err => {
+      console.log(err)
+    });
 
 })
 
